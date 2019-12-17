@@ -2,14 +2,7 @@ const addBtn = document.querySelector('#new-toy-btn')
 const toyForm = document.querySelector('.container')
 let addToy = false
 const toyCollection = document.querySelector('#toy-collection')
-// const likeBtns = document.getElementsByClassName('like-btn')
 
-// for (var i = 0; i < likeBtns.length; i++) {
-
-//     likeBtns[i].addEventListener('click', function(){
-//         console.log(likeBtns[i].value);
-//     });
-// }
 
 fetch('http://localhost:3000/toys').then(function (response) {return response.json()}).then(function (toys) {
   toys.forEach(function (toy) {
@@ -27,7 +20,7 @@ const toyDiv = document.createElement('div')
         <button class="like-btn" data-id=${toyObj.id}>Like <3</button>
       </div> 
     `
-    toyDiv.setAttribute("class", "card")
+    toyDiv.className = ("card")
     toyCollection.appendChild(toyDiv)
 }
 
@@ -74,13 +67,13 @@ toyForm.addEventListener("submit", function(e){
 document.body.addEventListener('click', function (e) {
   if (e.target.className === 'like-btn') {
     e.target.previousElementSibling.innerText = parseInt(e.target.previousElementSibling.innerText) + 1 + ' Likes'
-    console.log(e.target.dataset.id)
+    // console.log(e.target.dataset.id)
     
     let toy = {
       id: e.target.dataset.id,
       likes: parseInt(e.target.previousElementSibling.innerText)
     }
-    console.log(toy)
+
     function updateToy(toy) {
       fetch(`http://localhost:3000/toys/${e.target.dataset.id}`,{
         method: "PATCH",
